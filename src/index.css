@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #3b82f6;
+  --color-secondary: #1e293b;
+  --color-dark: #0f172a;
+  --color-light: #f8fafc;
+  --color-accent: #10b981;
+  --font-sans: 'Inter', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-dark text-light font-sans antialiased;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-20 md:py-28;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-12 text-center text-light;
+  }
+  
+  .section-title span {
+    @apply text-primary;
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 inline-block;
+  }
+
+  .btn-outline {
+    @apply border border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 inline-block;
+  }
+
+  .card {
+    @apply bg-secondary rounded-xl p-6 border border-slate-700 hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:-translate-y-1;
+  }
+}
