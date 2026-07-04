@@ -37,7 +37,7 @@ const Contact = () => {
                 <span className="text-lg">09949124453</span>
               </a>
               
-              <a href="https://linkedin.com/in/joe-barandon" target="_blank" rel="noreferrer" className="flex items-center gap-4 text-slate-300 hover:text-primary transition-colors group">
+              <a href="https://linkedin.com/in/joebarandon" target="_blank" rel="noreferrer" className="flex items-center gap-4 text-slate-300 hover:text-primary transition-colors group">
                 <div className="w-12 h-12 bg-dark rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <FaLinkedin size={20} className="text-primary" />
                 </div>

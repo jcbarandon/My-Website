@@ -29,8 +29,15 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <a href="#hero" className="text-2xl font-bold text-light tracking-tighter font-display">
-          JB<span className="text-primary">.</span>
+        <a href="#hero" className="flex items-center gap-3 group">
+          <img
+            src="/logo.png"
+            alt="Joe Barandon logo"
+            className="h-10 w-10 rounded-full ring-1 ring-slate-700 group-hover:ring-primary/60 transition"
+          />
+          <span className="text-2xl font-bold text-light tracking-tighter font-display hidden sm:inline">
+            JB<span className="text-primary">.</span>
+          </span>
         </a>
 
         {/* Desktop Nav */}

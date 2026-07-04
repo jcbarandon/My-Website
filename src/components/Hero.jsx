@@ -117,7 +117,7 @@ const Hero = () => {
                 <FaGithub size={20} />
               </a>
               <a
-                href="https://linkedin.com/in/joe-barandon"
+                href="https://linkedin.com/in/joebarandon"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"

@@ -91,7 +91,7 @@ automatic production deploy; other branches get preview URLs.
 ## 📫 Contact
 
 - **Email:** [barandonjoe13@gmail.com](mailto:barandonjoe13@gmail.com)
-- **LinkedIn:** [Joe Barandon](https://linkedin.com/in/joe-barandon)
+- **LinkedIn:** [Joe Barandon](https://linkedin.com/in/joebarandon)
 - **GitHub:** [@jcbarandon](https://github.com/jcbarandon)
 
 ---
