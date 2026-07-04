@@ -6,16 +6,62 @@
   --color-dark: #0f172a;
   --color-light: #f8fafc;
   --color-accent: #10b981;
-  --font-sans: 'Inter', sans-serif;
+  --color-accent2: #8b5cf6;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Brand gradient — blue → violet → emerald. Registered as real utilities
+   so they work both in markup and inside @apply. */
+@utility text-gradient {
+  background-image: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-accent2),
+    var(--color-accent)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-accent2),
+    var(--color-accent)
+  );
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply bg-dark text-light font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary/30 text-light;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 8px;
+    border: 2px solid #0f172a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
   }
 }
 
@@ -25,22 +71,97 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-12 text-center text-light;
+    @apply text-3xl md:text-4xl font-bold mb-4 text-center text-light font-display;
   }
-  
+
   .section-title span {
-    @apply text-primary;
+    @apply text-gradient;
+  }
+
+  .section-subtitle {
+    @apply text-slate-400 text-center max-w-2xl mx-auto mb-14;
   }
 
   .btn-primary {
-    @apply bg-primary hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 inline-block;
+    @apply bg-primary hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 inline-block shadow-lg shadow-primary/20;
   }
 
   .btn-outline {
-    @apply border border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 inline-block;
+    @apply border border-slate-600 text-slate-200 hover:border-primary hover:text-primary font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1 inline-block;
   }
 
   .card {
-    @apply bg-secondary rounded-xl p-6 border border-slate-700 hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:-translate-y-1;
+    @apply bg-secondary rounded-xl p-6 border border-slate-700 hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.25)] hover:-translate-y-1;
   }
+
+  /* Chip / tag */
+  .chip {
+    @apply px-3 py-1 bg-dark/60 text-slate-300 text-sm rounded-full border border-slate-700/60 transition-colors;
+  }
+}
+
+/* ---------- Decorative backgrounds ---------- */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-dots {
+  background-image: radial-gradient(rgba(59, 130, 246, 0.25) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+/* ---------- Scroll-reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------- Keyframe animations ---------- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+.animate-float {
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.caret {
+  display: inline-block;
+  width: 3px;
+  margin-left: 2px;
+  background: currentColor;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
 }

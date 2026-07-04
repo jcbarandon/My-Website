@@ -1,14 +1,19 @@
-import React from 'react';
 import { Mail, Phone, Send } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import Reveal from './Reveal';
 
 
 const Contact = () => {
   return (
     <section id="contact" className="bg-secondary relative">
       <div className="section-container">
-        <h2 className="section-title">Get In <span>Touch</span></h2>
-        
+        <Reveal>
+          <h2 className="section-title">Get In <span>Touch</span></h2>
+          <p className="section-subtitle">
+            I'm currently open to Software Developer internships and collaborations. Let's build something.
+          </p>
+        </Reveal>
+
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Info */}
           <div>
@@ -50,31 +55,49 @@ const Contact = () => {
           
           {/* Contact Form */}
           <div className="card bg-dark">
-            <h3 className="text-xl font-bold text-light mb-6">Send me a message</h3>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <h3 className="text-xl font-bold text-light mb-6 font-display">Send me a message</h3>
+            <form
+              className="space-y-4"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const data = new FormData(e.currentTarget);
+                const name = data.get('name');
+                const email = data.get('email');
+                const message = data.get('message');
+                const subject = encodeURIComponent(`Portfolio message from ${name || 'someone'}`);
+                const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+                window.location.href = `mailto:barandonjoe13@gmail.com?subject=${subject}&body=${body}`;
+              }}
+            >
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-400 mb-1">Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
                   className="w-full bg-secondary border border-slate-700 rounded-lg px-4 py-3 text-light focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   placeholder="John Doe"
                 />
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-slate-400 mb-1">Email</label>
-                <input 
-                  type="email" 
-                  id="email" 
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
                   className="w-full bg-secondary border border-slate-700 rounded-lg px-4 py-3 text-light focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   placeholder="john@example.com"
                 />
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-slate-400 mb-1">Message</label>
-                <textarea 
-                  id="message" 
+                <textarea
+                  id="message"
+                  name="message"
                   rows="4"
+                  required
                   className="w-full bg-secondary border border-slate-700 rounded-lg px-4 py-3 text-light focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
                   placeholder="Hello, I'd like to talk about..."
                 ></textarea>
