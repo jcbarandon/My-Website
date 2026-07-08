@@ -2,7 +2,7 @@
 
 > Personal portfolio of **Joe Carlo Jr. O. Barandon** — Machine Learning Engineer & Applications Developer, and a BS Computer Science student at Ateneo de Naga University.
 
-🌐 **Live site:** [joe-barandon.vercel.app](https://joe-barandon.vercel.app)
+🌐 **Live site:** [joebarandon-portfolio.vercel.app](https://joebarandon-portfolio.vercel.app/)
 
 <p>
   <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" />
