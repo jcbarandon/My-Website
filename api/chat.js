@@ -20,6 +20,21 @@ Rules:
 CONTEXT:
 ${KNOWLEDGE}`;
 
+// Transient Google-side failures (503 overloaded / 500 internal) are common and
+// usually clear immediately — retry a couple of times with a short backoff.
+async function generateWithRetry(ai, params, maxRetries = 2) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await ai.models.generateContent(params);
+    } catch (err) {
+      const status = err?.status || err?.code;
+      const transient = status === 503 || status === 500;
+      if (!transient || attempt >= maxRetries) throw err;
+      await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
+    }
+  }
+}
+
 // Best-effort in-memory limiter. Serverless instances are ephemeral and may be
 // duplicated, so this is a soft guard, not a hard quota — the Gemini free tier's
 // own daily cap is the real backstop.
@@ -81,7 +96,7 @@ export default async function handler(req, res) {
 
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    const response = await ai.models.generateContent({
+    const response = await generateWithRetry(ai, {
       model: MODEL,
       contents,
       config: {
@@ -100,6 +115,9 @@ export default async function handler(req, res) {
     const status = err?.status || err?.code;
     if (status === 429) {
       return res.status(429).json({ error: 'The assistant is busy right now (free-tier limit reached). Please try again in a minute.' });
+    }
+    if (status === 503) {
+      return res.status(503).json({ error: 'The AI model is briefly overloaded (high demand on Google’s side). Please try again in a moment.' });
     }
     console.error('Gemini chat error:', err);
     return res.status(500).json({ error: 'Something went wrong reaching the assistant. Please try again.' });
