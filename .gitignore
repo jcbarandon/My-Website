@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Local env files (never commit your API key)
+.env
+.env.*
+!.env.example
+
 # Vercel
 .vercel
 

@@ -83,6 +83,24 @@ My-Website/
 └── vercel.json        # Vercel deployment config
 ```
 
+## 🤖 AI Portfolio Assistant
+
+A floating chat widget lets visitors ask questions about my work (e.g. *"What
+projects used Python and React?"*). It's a grounded RAG-style assistant: a
+Vercel serverless function (`api/chat.js`) sends my portfolio knowledge base
+(`api/_knowledge.js`) to **Google Gemini** with strict instructions to answer
+**only** from that content — no hallucinated facts.
+
+**Setup (free):**
+
+1. Get a free key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
+2. Local: copy `.env.example` to `.env` and set `GEMINI_API_KEY`, then run with
+   `vercel dev` (plain `npm run dev` does **not** serve the `/api` function).
+3. Production: add `GEMINI_API_KEY` in **Vercel → Settings → Environment Variables**.
+
+The free tier (Gemini 2.5 Flash) allows ~10 requests/min and ~250/day, and the
+function caps message length and rate per IP.
+
 ## 🌍 Deployment
 
 Deployed on **Vercel** with a Vite preset. Every push to `main` triggers an
